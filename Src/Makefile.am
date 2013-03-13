@@ -8,6 +8,7 @@ libcmorf_la_SOURCES = cmor_cfortran_interface.c cmor_fortran_interface.f90
 libcmorf_la_LIBADD = libcmor.la 
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/include/cdTime $(UDUNITS2_CPPFLAGS)
+AM_CFLAGS = $(UUID_CFLAGS)
 AM_LDFLAGS = $(UDUNITS2_LDFLAGS) $(NETCDF_LDFLAGS)
 CLEANFILES = *.mod
 
