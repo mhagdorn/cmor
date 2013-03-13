@@ -1,0 +1,83 @@
+dnl Process this file with autoconf to produce a configure script.
+
+dnl set version
+m4_define([cmor_major_version], [2])
+m4_define([cmor_minor_version], [8])
+m4_define([cmor_micro_version], [3])
+m4_define([cmor_version],
+        [cmor_major_version.cmor_minor_version.cmor_micro_version])
+
+AC_INIT([cmor],[cmor_version],[doutriaux1@llnl.gov])
+AM_INIT_AUTOMAKE([color-tests])
+AC_CONFIG_HEADER([config.h])
+AC_CONFIG_MACRO_DIR(m4macros)
+
+dnl set the version which includes a GIT tag
+GIT_TAG=$(./get_git_version.sh)
+CMOR_VERSION=${PACKAGE_VERSION}${GIT_TAG}
+
+AC_PROG_LIBTOOL
+AC_PROG_INSTALL
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LN_S
+AC_PROG_SED
+AC_PROG_MKDIR_P
+
+dnl check for fortran
+build_fortran=1
+AC_MSG_CHECKING([whether we should build Fortran API])
+AC_ARG_ENABLE([fortran],[AS_HELP_STRING([--disable-fortran],[do not include fortran api])],
+ [case "${enableval}" in
+   yes) build_fortran=1  
+        AC_MSG_RESULT([yes]);;
+   no)  build_fortran=0
+        AC_MSG_RESULT([no])  ;;
+   *) AC_MSG_ERROR(bad value ${enableval} for --disable-fortran) ;;
+ esac],[AC_MSG_RESULT([yes])])
+if test "$build_fortran" == 1; then
+  AC_PROG_FC
+  AC_FC_SRCEXT(f90)
+  AC_FC_LIBRARY_LDFLAGS
+fi
+AM_CONDITIONAL([BUILD_FORTRAN], [test "$build_fortran" == "1"])
+
+dnl check for python
+AC_MSG_CHECKING([whether we should build python modules])
+build_python=1
+AC_ARG_ENABLE(python, AS_HELP_STRING([--disable-python], [Do not build Python modules]),
+ [case "${enableval}" in
+   yes) build_python=1  
+        AC_MSG_RESULT([yes]);;
+   no)  build_python=0
+        AC_MSG_RESULT([no])  ;;
+   *) AC_MSG_ERROR(bad value ${enableval} for --disable-python) ;;
+ esac],[AC_MSG_RESULT([yes])])
+if test "$build_python" == 1; then
+  AM_PATH_PYTHON([2.5],,[AC_MSG_RESULT(need at least python 2.5)])
+  AC_PYTHON_DEVEL([>= '2.5'])
+  AX_PYTHON_MODULE(numpy,true)
+  # check for numpy header file location
+  # if numpy is installed from source, the headers end up in the python package directory
+  CPPFLAGS_saved="$CPPFLAGS"
+  NUMPY_CPPFLAGS="-I$PYTHON_SITE_PKG/numpy/core/include"
+  CPPFLAGS="$PYTHON_CPPFLAGS $NUMPY_CPPFLAGS"
+  AC_CHECK_HEADER(numpy/arrayobject.h,[],AC_MSG_ERROR([cannot find numpy/arrayobject.h]),[#include <Python.h>])
+  CPPFLAGS="$CPPFLAGS_saved"
+  AC_SUBST(NUMPY_CPPFLAGS)
+fi
+AM_CONDITIONAL([BUILD_PYTHON], [test "$build_python" == "1"])
+
+##########################################
+# need to figure out how to deal with cdat
+##########################################
+
+dnl look for various libraries
+PKG_CHECK_MODULES([UUID],[ossp-uuid])
+ACX_NETCDF([],[AC_MSG_ERROR(cannot find netCDF library)])
+ACX_UDUNITS2([],[AC_MSG_ERROR(cannot find udunits2 library)])
+
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([include/Makefile Src/Makefile Lib/Makefile])
+AC_CONFIG_FILES([Doc/Makefile])
+AC_OUTPUT
