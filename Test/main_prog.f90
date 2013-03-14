@@ -200,7 +200,7 @@ PROGRAM mip_contribution
   !    files should not be overwritten, and instruct CMOR to error exit on 
   !    encountering errors of any severity.
   
-  error_flag = cmor_setup(inpath='Test',   &
+  error_flag = cmor_setup(inpath='.',   &
        netcdf_file_action='replace',                                       &
        set_verbosity=1,                                                    &
        exit_control=1)
@@ -212,7 +212,7 @@ PROGRAM mip_contribution
 
   print*, 'calling cmor_dataset'
   error_flag = cmor_dataset(                                   &
-       outpath='Test',         &
+       outpath='.',         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -238,42 +238,42 @@ PROGRAM mip_contribution
 
   print*, 'defining 3-d axes'
    axis2d_ids2(1) = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
        coord_vals=alats,             & 
        cell_bounds=bnds_lat)              
   axis2d_ids2(2) = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
        coord_vals=alons,             &
        cell_bounds=bnds_lon)              
   axis2d_ids2(3) = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='time',           &
        units='days since 1979-1-1',  &
        length=ntimes,                &
        interval='1 month')
  
   axis3d_ids(2) = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
        coord_vals=alats,             & 
        cell_bounds=bnds_lat)              
   axis3d_ids(1) = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
        coord_vals=alons,             &
        cell_bounds=bnds_lon)              
   axis3d_ids(3) = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev,                   &
@@ -283,7 +283,7 @@ PROGRAM mip_contribution
   !   cmor_write (below).
 print*, 'before time '
   axis3d_ids(4) = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time',           &
        units='days since 1979-1-1',  &
        length=ntimes,                &
@@ -305,7 +305,7 @@ print*, 'finished defining 2-d axes'
   
   DO m=1,n3d
      var3d_ids(m) = cmor_variable(    &   
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry3d(m),     &
           units=units3d(m),           &
           axis_ids=axis3d_ids,        &
@@ -320,7 +320,7 @@ print*, 'finished defining 2-d axes'
   DO m=1,n2d
      if (m.eq.3) then
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_Lmon',  & 
+             table='../Tables/CMIP5_Lmon',  & 
              table_entry=entry2d(m),     & 
 !!$          file_suffix='1979-2001',    &
              units=units2d(m),           & 
@@ -330,7 +330,7 @@ print*, 'finished defining 2-d axes'
              original_name=varin2d(m))  
      else 
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  & 
+          table='../Tables/CMIP5_Amon',  & 
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=axis2d_ids,        &

@@ -206,7 +206,7 @@ PROGRAM ipcc_test_code
   ! Specify path where tables can be found and indicate that existing 
   !    netCDF files should not be overwritten.
   
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action='replace')!,logfile='test_3h.LOG')
+  error_flag = cmor_setup(inpath='.', netcdf_file_action='replace')!,logfile='test_3h.LOG')
   
   ! Define dataset as output from the GICC model (first member of an
   !   ensemble of simulations) run under IPCC 2xCO2 equilibrium
@@ -214,7 +214,7 @@ PROGRAM ipcc_test_code
   !   attributes in all CF-netCDF files written as part of this dataset.
 
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -240,7 +240,7 @@ PROGRAM ipcc_test_code
   !  Define all axes that will be needed
 
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_3hr',    &
+       table='../Tables/CMIP5_3hr',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -248,7 +248,7 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lat)        
       
   ilon = cmor_axis(  &
-       table='Tables/CMIP5_3hr',    &
+       table='../Tables/CMIP5_3hr',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -267,14 +267,14 @@ PROGRAM ipcc_test_code
   !   cmor_write (later, below).
 
   itim = cmor_axis(  &
-       table='Tables/CMIP5_3hr',    &
+       table='../Tables/CMIP5_3hr',    &
        table_entry='time',           &
        units='hours since 2030-1-1',  &
        length=ntimes,                &
        interval='3 hours')
 
   itim1 = cmor_axis(  &
-       table='Tables/CMIP5_3hr',    &
+       table='../Tables/CMIP5_3hr',    &
        table_entry='time1',           &
        units='hours since 2030-1-1',  &
        length=ntimes)
@@ -285,7 +285,7 @@ PROGRAM ipcc_test_code
 !!$  zlev_bnds=(/ 0.,.2, .42, .62, .8, 1. /)
 !!$
 !!$  ilev = cmor_axis(  &
-!!$       table='Tables/CMIP5_3hr',    &
+!!$       table='../Tables/CMIP5_3hr',    &
 !!$       table_entry='standard_hybrid_sigma',       &
 !!$       length=lev,                   &
 !!$       coord_vals=zlevs,             &
@@ -329,7 +329,7 @@ PROGRAM ipcc_test_code
 !!$  !    (appearing in IPCC table A1c)
 !!$
 !!$  var3d_ids(1) = cmor_variable(    &
-!!$       table='Tables/CMIP5_3hr',  &
+!!$       table='../Tables/CMIP5_3hr',  &
 !!$       table_entry=entry3d(1),     &
 !!$       units=units3d(1),           &
 !!$       axis_ids=(/ ilon, ilat, ilev, itim /),  &
@@ -341,7 +341,7 @@ PROGRAM ipcc_test_code
 !!$  
 !!$  DO m=2,n3d
 !!$     var3d_ids(m) = cmor_variable(    &
-!!$          table='Tables/CMIP5_3hr',  &
+!!$          table='../Tables/CMIP5_3hr',  &
 !!$          table_entry=entry3d(m),     &
 !!$          units=units3d(m),           &
 !!$          axis_ids=(/ ilon, ilat, ipres, itim /), &
@@ -357,7 +357,7 @@ PROGRAM ipcc_test_code
      IF (m.ne.3) THEN
         print*, 'itim axis ids: ',ilon,ilat,itim
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_3hr',  &
+             table='../Tables/CMIP5_3hr',  &
              table_entry=entry2d(m),     & 
              units=units2d(m),           & 
              axis_ids=(/ ilon, ilat, itim /), &
@@ -368,7 +368,7 @@ PROGRAM ipcc_test_code
      ELSE
         print*, 'itim1 axis ids: ',ilon,ilat,itim1
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_3hr',  &
+             table='../Tables/CMIP5_3hr',  &
              table_entry=entry2d(m),     & 
              units=units2d(m),           & 
              axis_ids=(/ ilon, ilat, itim1 /), &

@@ -219,7 +219,7 @@ PROGRAM karls_test
   ! Specify path where tables can be found and indicate that existing 
   !    netCDF files should not be overwritten.
   
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action='replace')!,logfile='karls_test.LOG')
+  error_flag = cmor_setup(inpath='.', netcdf_file_action='replace')!,logfile='karls_test.LOG')
   
   ! Define dataset as output from the GICC model (first member of an
   !   ensemble of simulations) run under IPCC 2xCO2 equilibrium
@@ -227,7 +227,7 @@ PROGRAM karls_test
   !   attributes in all CF-netCDF files written as part of this dataset.
 
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -253,7 +253,7 @@ PROGRAM karls_test
   !  Define all axes that will be needed
 
   iz =  cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='height2m',       &
        units='m',                    &  
        length=1,                     &
@@ -261,7 +261,7 @@ PROGRAM karls_test
 print*, 'iz = ', iz
   
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -269,14 +269,14 @@ print*, 'iz = ', iz
        cell_bounds=bnds_lat)        
       
   ilon = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
        coord_vals=alons,             &
        cell_bounds=bnds_lon)      
   ilat2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -284,7 +284,7 @@ print*, 'iz = ', iz
        cell_bounds=bnds_lat)        
       
   ilon2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -293,7 +293,7 @@ print*, 'iz = ', iz
         
   print*, 'plevs:',plevs
   ipres = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev2,                   &
@@ -304,13 +304,13 @@ print*, 'iz = ', iz
   !   cmor_write (later, below).
 
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
        interval='1 month')
   itim2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',    &
+       table='../Tables/CMIP5_Lmon',    &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -322,7 +322,7 @@ print*, 'iz = ', iz
   zlev_bnds=(/ 0.,.2, .42, .62, .8, 1. /)
 
   ilev = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='standard_hybrid_sigma',       &
        length=lev,                   &
        units = '1', &
@@ -367,7 +367,7 @@ print*, 'iz = ', iz
   !    (appearing in IPCC table A1c)
 
   var3d_ids(1) = cmor_variable(    &
-       table='Tables/CMIP5_Amon',  &
+       table='../Tables/CMIP5_Amon',  &
        table_entry=entry3d(1),     &
        units=units3d(1),           &
        axis_ids=(/ ilon, ilat, ilev, itim /),  &
@@ -379,7 +379,7 @@ print*, 'iz = ', iz
   
   DO m=2,n3d
      var3d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry3d(m),     &
           units=units3d(m),           &
           axis_ids=(/ ilon, ilat, ipres, itim /), &
@@ -396,7 +396,7 @@ print*, 'iz = ', iz
      IF (m.eq.2) then
 !!$
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon, iz, ilat, itim  /), &
@@ -406,7 +406,7 @@ print*, 'iz = ', iz
 
   else if (m.eq.3) then
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Lmon',  &
+          table='../Tables/CMIP5_Lmon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon2, ilat2, itim2 /), &
@@ -415,7 +415,7 @@ print*, 'iz = ', iz
           original_name=varin2d(m))   
   else
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon, ilat, itim /), &

@@ -79,5 +79,5 @@ ACX_UDUNITS2([],[AC_MSG_ERROR(cannot find udunits2 library)])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile Src/Makefile Lib/Makefile])
-AC_CONFIG_FILES([Doc/Makefile])
+AC_CONFIG_FILES([Doc/Makefile Test/Makefile Tables/Makefile])
 AC_OUTPUT

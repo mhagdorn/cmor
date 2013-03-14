@@ -174,14 +174,14 @@ program testing
      end do
   end do
 
-  inpath ='Test'
+  inpath ='.'
   j = CMOR_REPLACE
   k = CMOR_EXIT_ON_MAJOR
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action=j,&
+  error_flag = cmor_setup(inpath='.', netcdf_file_action=j,&
        exit_control=k)
   
     error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -204,8 +204,8 @@ program testing
        forcing='TO',contact="Barry Bonds",institute_id="PCMDI",&
        parent_experiment_rip="N/A",parent_experiment_id="N/A",branch_time=bt)
 
-    tables(1) = cmor_load_table('Tables/CMIP5_Amon')
-    tables(2) = cmor_load_table('Tables/CMIP5_grids')
+    tables(1) = cmor_load_table('../Tables/CMIP5_Amon')
+    tables(2) = cmor_load_table('../Tables/CMIP5_grids')
 
     axes(1) = cmor_axis(table_entry = 'x', &
                         units = 'm', &
@@ -230,7 +230,7 @@ program testing
     call cmor_set_table(table_id=tables(2))
 
      
-    axes(3) = cmor_axis(table = 'Tables/CMIP5_Amon',&
+    axes(3) = cmor_axis(table = '../Tables/CMIP5_Amon',&
                         table_entry = 'time',&
                         units = 'days since 1980',&
                         length = 2 &
@@ -240,7 +240,7 @@ program testing
     pass_axes(2) = axes(3)
     pass_axes(1) = grid_id
     
-    vars(1) = cmor_variable(table = 'Tables/CMIP5_Amon',&
+    vars(1) = cmor_variable(table = '../Tables/CMIP5_Amon',&
                             table_entry = 'hfls',&
                             units = 'W m-2',&
                             axis_ids = pass_axes,&

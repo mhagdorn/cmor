@@ -154,11 +154,11 @@ program testing
   bt=0.
   j = CMOR_REPLACE
   k = CMOR_EXIT_ON_MAJOR
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action=j,&
+  error_flag = cmor_setup(inpath='.', netcdf_file_action=j,&
        exit_control=k)
   print*,'Test code: done'
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -187,7 +187,7 @@ program testing
 
   print*, 'Test code: ok calling axis stuff station'
   ist = cmor_axis(  &
-       table='Tables/CMIP5_grids',    &
+       table='../Tables/CMIP5_grids',    &
        table_entry='i_index',       &
        units=' ',        &  
        length=nst,                   &
@@ -196,7 +196,7 @@ program testing
    
   print*, 'Test code: ok calling axis stuff pressure',ist
   ipres = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev,                   &
@@ -208,14 +208,14 @@ program testing
 
   print*, 'Test code: ok calling axis stuff time',ipres
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
        interval='1 month')
         
   itim2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -227,7 +227,7 @@ program testing
   ! variables as assosiated to the station data.
   ! You do not set up lon/lat as axis variables for the station data     
   ! note - the first parameter has ot be an array (of dim=1 in this example)
-  igrid = cmor_load_table("Tables/CMIP5_grids")
+  igrid = cmor_load_table("../Tables/CMIP5_grids")
   igrid = cmor_grid((/ist/), st_lats, st_lons)       
        
   write(*,'(a, 12f6.1)') 'lons: ',st_lons
@@ -242,7 +242,7 @@ program testing
      print*, 'Test code: var:  ',m,entry2d(m)
      if (m.eq.3) then 
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Lmon',  &
+          table='../Tables/CMIP5_Lmon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ igrid, itim2 /), &
@@ -251,7 +251,7 @@ program testing
           original_name=varin2d(m)) 
   else  
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ igrid, itim /), &

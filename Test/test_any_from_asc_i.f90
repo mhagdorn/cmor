@@ -65,14 +65,14 @@ program main
   
   print*,'Test Code: CMOR SETUP'
 !!$  
-  ierr = cmor_setup(inpath='Test',   &
+  ierr = cmor_setup(inpath='.',   &
        netcdf_file_action='replace',                                       &
        set_verbosity=1,                                                    &
        exit_control=1)
     
   print*,'Test Code: CMOR DATASET'
   ierr = cmor_dataset(                                   &
-       outpath='Test',         &
+       outpath='.',         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -99,7 +99,7 @@ program main
      if (trim(adjustl(current%name)).eq.'time') then
         print*, 'Test Code: time found'
         ptimes => current
-        myaxis(ndim-i)=cmor_axis('Tables/CMIP5_Amon', &
+        myaxis(ndim-i)=cmor_axis('../Tables/CMIP5_Amon', &
              table_entry=current%name,&
              units=current%units,&
              length=current%n,&
@@ -107,7 +107,7 @@ program main
 !!$          cell_bounds=current%bounds, &
              interval='1 month')
      else
-        myaxis(ndim-i)=cmor_axis('Tables/CMIP5_Amon', &
+        myaxis(ndim-i)=cmor_axis('../Tables/CMIP5_Amon', &
              table_entry=current%name,&
              units=current%units,&
              length=current%n,&
@@ -119,7 +119,7 @@ program main
   enddo
   
   print*,'Test Code: CMOR VAR',var,units
-  myvar=cmor_variable('Tables/CMIP5_Amon',&
+  myvar=cmor_variable('../Tables/CMIP5_Amon',&
        var,&
        units,&
        myaxis,&

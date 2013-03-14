@@ -177,7 +177,7 @@ PROGRAM mip_contribution
   !    files should not be overwritten, and instruct CMOR to error exit on 
   !    encountering errors of any severity.
   
-  error_flag = cmor_setup(inpath='Test',   &
+  error_flag = cmor_setup(inpath='.',   &
        netcdf_file_action='replace',                                       &
        set_verbosity=1,                                                    &
        exit_control=1)
@@ -189,7 +189,7 @@ PROGRAM mip_contribution
 
   print*, 'calling cmor_dataset'
   error_flag = cmor_dataset(                                   &
-       outpath='Test',         &
+       outpath='.',         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &

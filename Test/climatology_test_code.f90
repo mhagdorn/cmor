@@ -214,7 +214,7 @@ PROGRAM ipcc_test_code
   ! Specify path where tables can be found and indicate that existing 
   !    netCDF files should not be overwritten.
   
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action='replace')!,logfile="climatology_test_code.LOG")
+  error_flag = cmor_setup(inpath='.', netcdf_file_action='replace')!,logfile="climatology_test_code.LOG")
   
   ! Define dataset as output from the GICC model (first member of an
   !   ensemble of simulations) run under IPCC 2xCO2 equilibrium
@@ -222,7 +222,7 @@ PROGRAM ipcc_test_code
   !   attributes in all CF-netCDF files written as part of this dataset.
 
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -249,13 +249,13 @@ PROGRAM ipcc_test_code
   !  Define all axes that will be needed
 
   ipres = cmor_axis(  &
-       table='Tables/CMIP5_Amon',        &
+       table='../Tables/CMIP5_Amon',        &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev,                   &
        coord_vals=plevs)
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -263,7 +263,7 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lat)        
       
   ilon = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -275,7 +275,7 @@ PROGRAM ipcc_test_code
   !   cmor_write (later, below).
 
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time2',           &
        units='days since 2030-1-1',  &
        length=ntimes*24                &
@@ -286,7 +286,7 @@ PROGRAM ipcc_test_code
   
   DO m=1,n2d
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon, ilat, ipres, itim /), &

@@ -28,7 +28,7 @@ program main
   double precision bt
   bt=0.
   print*, 'Test Code: hi'
-  filein='Test/ta_4D_r.asc'
+  filein='ta_4D_r.asc'
   open(unit=23,file=filein,form='formatted') 
   call allocate_dims(23,mydims,ndim,dimlength)
   allocate(myaxis(ndim))
@@ -63,14 +63,14 @@ program main
 
   print*,'Test Code: CMOR SETUP'
 !!$  
-  ierr = cmor_setup(inpath='Test',   &
+  ierr = cmor_setup(inpath='.',   &
        netcdf_file_action='replace',                                       &
        set_verbosity=1,                                                    &
        exit_control=1)
     
   print*,'Test Code: CMOR DATASET'
   ierr = cmor_dataset(                                   &
-       outpath='Test',         &
+       outpath='.',         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -100,7 +100,7 @@ program main
 !!$     print*, 'Test Code: ',current%bounds(1:2,1:min(4,size(current%values)))
      if (trim(adjustl(current%name)).eq.'time') then
         print*, 'Test Code: time found'
-        myaxis(ndim-i)=cmor_axis('Tables/CMIP5_Amon', &
+        myaxis(ndim-i)=cmor_axis('../Tables/CMIP5_Amon', &
           table_entry=current%name,&
           units=current%units,&
           length=current%n,&
@@ -108,7 +108,7 @@ program main
 !!$          cell_bounds=current%bounds, &
           interval='30 days')
      else
-     myaxis(ndim-i)=cmor_axis('Tables/CMIP5_Amon', &
+     myaxis(ndim-i)=cmor_axis('../Tables/CMIP5_Amon', &
           table_entry=current%name,&
           units=current%units,&
           length=current%n,&
@@ -122,7 +122,7 @@ program main
   print*,'Test Code: CMOR VARCMOR VARCMOR VARCMOR'
 
   mymiss=1.e20
-  myvar=cmor_variable('Tables/CMIP5_Amon',&
+  myvar=cmor_variable('../Tables/CMIP5_Amon',&
        'ta',&
        'K',&
        myaxis,&

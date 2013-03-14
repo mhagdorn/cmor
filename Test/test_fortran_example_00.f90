@@ -134,11 +134,11 @@ program testing
   bt=0.
   j = CMOR_REPLACE
   k = CMOR_EXIT_ON_MAJOR
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action=j,&
+  error_flag = cmor_setup(inpath='.', netcdf_file_action=j,&
        exit_control=k)
   print*,'Test code: done'
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -166,7 +166,7 @@ program testing
   
 
   ilat2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -174,7 +174,7 @@ program testing
        cell_bounds=bnds_lat)        
       
   ilon2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -182,7 +182,7 @@ program testing
        cell_bounds=bnds_lon)      
         
   itim2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -190,7 +190,7 @@ program testing
 
   print*, 'Test code: ok calling axis stuff lat'
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -199,7 +199,7 @@ program testing
       
   print*, 'Test code: ok calling axis stuff lon',ilat
   ilon = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -208,7 +208,7 @@ program testing
         
   print*, 'Test code: ok calling axis stuff pressure',ilon
   ipres = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev2,                   &
@@ -220,7 +220,7 @@ program testing
 
   print*, 'Test code: ok calling axis stuff time',ipres
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -233,7 +233,7 @@ program testing
 
   print*, 'Test code: ok calling axis stuff lev2',itim
   ilev = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='standard_hybrid_sigma',       &
        units="1",   &
        length=lev,                   &
@@ -287,7 +287,7 @@ program testing
   print*, 'Test code: var3d'
   missing = 1.e28
   var3d_ids(1) = cmor_variable(    &
-       table='Tables/CMIP5_Amon',  &
+       table='../Tables/CMIP5_Amon',  &
        table_entry=entry3d(1),     &
        units=units3d(1),           &
        axis_ids=(/ ilon, ilat, ilev, itim /),  &
@@ -301,7 +301,7 @@ program testing
   DO m=2,n3d
      print*, 'Test code: var: ',entry3d(m)
      var3d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry3d(m),     &
           units=units3d(m),           &
           axis_ids=(/ ilon, ilat, ipres, itim /), &
@@ -317,7 +317,7 @@ program testing
      print*, 'Test code: var: ',entry2d(m)
      if (m.ne.3) then
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',      &
+          table='../Tables/CMIP5_Amon',      &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon, ilat, itim /), &
@@ -326,7 +326,7 @@ program testing
           original_name=varin2d(m))   
   else
      var2d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Lmon',      &
+          table='../Tables/CMIP5_Lmon',      &
           table_entry=entry2d(m),     & 
           units=units2d(m),           & 
           axis_ids=(/ ilon2, ilat2, itim2 /), &

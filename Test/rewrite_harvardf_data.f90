@@ -10,12 +10,12 @@
 
 USE cmor_users_functions
 
-      character(len = 25) :: input_file   = 'Test/tas_harvardf.txt'
+      character(len = 25) :: input_file   = 'tas_harvardf.txt'
       character(len = 20) :: output_file  = 'tas_harvardf.nc'
       character(len = 20) :: units_string = 'K'
 !     character(len = 20) :: input_table  = 'IPCC_test_table_A'
 !!$      character(len = 20) :: input_table  = 'IPCC_table_A2'
-      character(len = 20) :: input_table  = 'Tables/CMIP5_day'
+      character(len = 20) :: input_table  = '../Tables/CMIP5_day'
 
       character :: first_line    ! throwaway
 
@@ -64,7 +64,7 @@ USE cmor_users_functions
 
       print *, 'Identifying output data sets for CMOR ...'
       ierrorflag = cmor_dataset(                               &
-                      outpath       = 'Test',                    &
+                      outpath       = '.',                    &
                       experiment_id =                          &
       'abrupt 4XCO2',        &
                       institution   =                          &

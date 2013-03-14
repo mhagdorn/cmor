@@ -160,7 +160,7 @@ PROGRAM test_region
   ! Specify path where tables can be found and indicate that existing 
   !    netCDF files should not be overwritten.
   
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action='replace')
+  error_flag = cmor_setup(inpath='.', netcdf_file_action='replace')
   
   ! Define dataset as output from the GICC model (first member of an
   !   ensemble of simulations) run under IPCC 2xCO2 equilibrium
@@ -168,7 +168,7 @@ PROGRAM test_region
   !   attributes in all CF-netCDF files written as part of this dataset.
 
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -194,7 +194,7 @@ PROGRAM test_region
   !  Define all axes that will be needed
   
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_Omon',    &
+       table='../Tables/CMIP5_Omon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -202,7 +202,7 @@ PROGRAM test_region
        cell_bounds=bnds_lat)        
       
   ireg = cmor_axis(  &
-       table='Tables/CMIP5_Omon',        &
+       table='../Tables/CMIP5_Omon',        &
        table_entry='basin',         &
        length=reg,                   &
        units='none',                 &
@@ -214,7 +214,7 @@ PROGRAM test_region
   !   cmor_write (later, below).
 
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Omon',        &
+       table='../Tables/CMIP5_Omon',        &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -225,7 +225,7 @@ PROGRAM test_region
   
   DO m=1,n1d
      var1d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Omon',      &
+          table='../Tables/CMIP5_Omon',      &
           table_entry=entry1d(m),     &
           units=units1d(m),           &
           axis_ids=(/ ilat, ireg, itim /), &

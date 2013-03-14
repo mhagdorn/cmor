@@ -208,7 +208,7 @@ PROGRAM ipcc_test_code
   ! Specify path where tables can be found and indicate that existing 
   !    netCDF files should not be overwritten.
   
-  error_flag = cmor_setup(inpath='Test', netcdf_file_action='replace')
+  error_flag = cmor_setup(inpath='.', netcdf_file_action='replace')
   
   ! Define dataset as output from the GICC model (first member of an
   !   ensemble of simulations) run under IPCC 2xCO2 equilibrium
@@ -216,7 +216,7 @@ PROGRAM ipcc_test_code
   !   attributes in all CF-netCDF files written as part of this dataset.
 
   error_flag = cmor_dataset(                                   &
-       outpath='Test',                                         &
+       outpath='.',                                         &
        experiment_id='abrupt 4XCO2',           &
        institution=                                            &
        'GICC (Generic International Climate Center, ' //       &
@@ -242,7 +242,7 @@ PROGRAM ipcc_test_code
   !  Define all axes that will be needed
 
   ilat = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -250,7 +250,7 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lat)        
       
   ilon = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -258,13 +258,13 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lon)      
         
   ipres = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='plevs',       &
        units='Pa',                   &
        length=lev2,                   &
        coord_vals=plevs)
   ilat2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='latitude',       &
        units='degrees_north',        &  
        length=lat,                   &
@@ -272,7 +272,7 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lat)        
       
   ilon2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='longitude',      &
        length=lon,                   &
        units='degrees_east',         &
@@ -280,7 +280,7 @@ PROGRAM ipcc_test_code
        cell_bounds=bnds_lon)      
         
   itim2 = cmor_axis(  &
-       table='Tables/CMIP5_Lmon',        &
+       table='../Tables/CMIP5_Lmon',        &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -288,7 +288,7 @@ PROGRAM ipcc_test_code
 
 
   iht = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='height2m',       &
        units='m',                   &
        length=1,                   &
@@ -299,7 +299,7 @@ PROGRAM ipcc_test_code
   !   cmor_write (later, below).
 
   itim = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='time',           &
        units='days since 2030-1-1',  &
        length=ntimes,                &
@@ -311,7 +311,7 @@ PROGRAM ipcc_test_code
   zlev_bnds=(/ 0.,.2, .42, .62, .8, 1. /)
 
   ilev = cmor_axis(  &
-       table='Tables/CMIP5_Amon',    &
+       table='../Tables/CMIP5_Amon',    &
        table_entry='standard_hybrid_sigma',       &
        length=lev,                   &
        units='1',&
@@ -356,7 +356,7 @@ PROGRAM ipcc_test_code
   !    (appearing in IPCC table A1c)
 
   var3d_ids(1) = cmor_variable(    &
-       table='Tables/CMIP5_Amon',  &
+       table='../Tables/CMIP5_Amon',  &
        table_entry=entry3d(1),     &
        units=units3d(1),           &
        axis_ids=(/ ilon, ilat, ilev, itim /),  &
@@ -368,7 +368,7 @@ PROGRAM ipcc_test_code
   bt = 1.e28
   DO m=2,n3d
      var3d_ids(m) = cmor_variable(    &
-          table='Tables/CMIP5_Amon',  &
+          table='../Tables/CMIP5_Amon',  &
           table_entry=entry3d(m),     &
           units=units3d(m),           &
           axis_ids=(/ ilon, ilat, ipres, itim /), &
@@ -382,7 +382,7 @@ PROGRAM ipcc_test_code
   DO m=1,n2d
      IF (m==2) THEN
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_Amon',  &
+             table='../Tables/CMIP5_Amon',  &
              table_entry=entry2d(m),     & 
              units=units2d(m),           & 
              axis_ids=(/ ilat, iht, ilon, itim /), &
@@ -392,7 +392,7 @@ PROGRAM ipcc_test_code
      ELSE IF (m==3) THEN
 
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_Lmon',  &
+             table='../Tables/CMIP5_Lmon',  &
              table_entry=entry2d(m),     & 
              units=units2d(m),           & 
              axis_ids=(/ ilon2, ilat2, itim2 /), &
@@ -403,7 +403,7 @@ PROGRAM ipcc_test_code
      ELSE
 
         var2d_ids(m) = cmor_variable(    &
-             table='Tables/CMIP5_Amon',  &
+             table='../Tables/CMIP5_Amon',  &
              table_entry=entry2d(m),     & 
              units=units2d(m),           & 
              axis_ids=(/ ilon, ilat, itim /), &

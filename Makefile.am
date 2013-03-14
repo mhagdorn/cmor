@@ -1,1 +1,1 @@
-SUBDIRS = include Src Lib Doc
+SUBDIRS = include Src Lib Doc Test Tables
