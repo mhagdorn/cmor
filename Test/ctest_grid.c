@@ -112,7 +112,7 @@ int main()
   printf("Test code: ok init cmor\n");
   int tmpmo[12];
   ierr = cmor_dataset(
-       "Test",
+       ".",
        "amip",
        "GICC (Generic International Climate Center, Geneva, Switzerland)",
        "GICCM1 (2002): atmosphere:  GICAM3 (gicam_0_brnchT_itea_2, T63L32); ocean: MOM (mom3_ver_3.5.2, 2x3L15); sea ice: GISIM4; land: GILSM2.5",
@@ -127,10 +127,10 @@ int main()
        tmpmo,
        "GICCM1\0","N/A",0,0,"GICC","N/A",&tmpf,"r1i1p1");
   printf("Test code: ok load cmor table(s)\n");
-  ierr = cmor_load_table("Tables/CMIP5_Amon",&tables[1]);
+  ierr = cmor_load_table("../Tables/CMIP5_Amon",&tables[1]);
   printf("Test code: ok load cmor table(s)\n");
   //ierr = cmor_load_table("Test/IPCC_test_table_Grids",&tables[0]);
-  ierr = cmor_load_table("Tables/CMIP5_grids",&tables[0]);
+  ierr = cmor_load_table("../Tables/CMIP5_grids",&tables[0]);
   printf("Test code: ok load cmor table(s)\n");
   ierr = cmor_set_table(tables[0]);
 

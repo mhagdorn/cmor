@@ -1,4 +1,4 @@
-check_PROGRAMS = $(fortran_tests)
+check_PROGRAMS = cipcc_test_code ctest_grid ctest_lots_of_variables $(fortran_tests)
 TESTS = $(patsubst %,%.sh,$(check_PROGRAMS))
 
 CLEANFILES = *.mod $(TESTS) $(subst sh,log,$(TESTS))
@@ -27,7 +27,21 @@ endif
 	@chmod a+x $@
 
 fldadd = ../Src/libcmorf.la
+cldadd = ../Src/libcmor.la
 AM_FCFLAGS = -I../Src
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/include/cdTime $(UDUNITS2_CPPFLAGS)
+
+cipcc_test_code_SOURCES = cipcc_test_code.c reader_2D_3D.h
+cipcc_test_code_LDADD = $(cldadd)
+cipcc_test_code_INPUT = noinput
+
+ctest_grid_SOURCES = ctest_grid.c reader_2D_3D.h
+ctest_grid_LDADD = $(cldadd)
+ctest_grid_INPUT = noinput
+
+ctest_lots_of_variables_SOURCES = ctest_lots_of_variables.c reader_2D_3D.h
+ctest_lots_of_variables_LDADD = $(cldadd)
+ctest_lots_of_variables_INPUT = noinput
 
 test_any_from_asc_SOURCES = test_any_from_asc.f90
 test_any_from_asc_LDADD = $(fldadd)

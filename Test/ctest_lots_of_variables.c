@@ -275,7 +275,7 @@ int main()
 
   printf("yep: %s, %s\n",c1,c2);
   ierr = cmor_dataset(
-       "Test",
+       ".",
        "abrupt 4XCO2",
        "GICC (Generic International Climate Center, Geneva, Switzerland)",
        "GICCM1 (2002): atmosphere:  GICAM3 (gicam_0_brnchT_itea_2, T63L32); ocean: MOM (mom3_ver_3.5.2, 2x3L15); sea ice: GISIM4; land: GILSM2.5",
@@ -293,7 +293,7 @@ int main()
 /*   cmor_set_cur_dataset_attribute("initialization_method","3",1); */
 /*  cmor_set_cur_dataset_attribute("physics_version","5",1); */
   printf("Test code: ok load cmor table(s)\n");
-  ierr = cmor_load_table("Test/CMIP5_Amons",&tables[0]);
+  ierr = cmor_load_table("CMIP5_Amons",&tables[0]);
   strcpy(id,"time");
   strcpy(units,"months since 1980");
   strcpy(interval,"1 month");
