@@ -1,9 +1,9 @@
 import cmor,numpy
 
-error_flag = cmor.setup(inpath='Test', netcdf_file_action=cmor.CMOR_REPLACE)
+error_flag = cmor.setup(inpath='.', netcdf_file_action=cmor.CMOR_REPLACE)
   
 error_flag = cmor.dataset(                                   
-       outpath='Test',                                         
+       outpath='.',                                         
        experiment_id='noVolc2000',
        institution= 'GICC (Generic International Climate Center, Geneva, Switzerland)',                                 
        source='GICCM1 (2002): ',
@@ -27,6 +27,6 @@ alats = numpy.arange(180)-89.5
 bnds_lat = numpy.arange(181)-90
 alons=numpy.arange(360)+.5
 bnds_lon=numpy.arange(361)
-cmor.load_table("Tables/CMIP5_cf3hr")
+cmor.load_table("../Tables/CMIP5_cf3hr")
 error_flag = cmor.close()  
 

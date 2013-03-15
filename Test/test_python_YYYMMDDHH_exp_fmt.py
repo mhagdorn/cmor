@@ -1,7 +1,7 @@
 import cmor
 
 def path_test():
-    cmor.setup(inpath='Test',netcdf_file_action=cmor.CMOR_REPLACE)
+    cmor.setup(inpath='.',netcdf_file_action=cmor.CMOR_REPLACE)
 
     cmor.dataset('mytest2010030812', 'ukmo', 'HadCM3', '360_day',
                  institute_id="PCMDI",

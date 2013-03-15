@@ -2,7 +2,7 @@ import cmor
 import numpy
 
 def cmor_initialisation():
-    cmor.setup(inpath='Tables',
+    cmor.setup(inpath='../Tables',
                netcdf_file_action = cmor.CMOR_REPLACE_3,
                create_subdirectories = 0)
     cmor.dataset('pre-industrial control', 'ukmo', 'HadCM3', '360_day',
@@ -14,7 +14,7 @@ def cmor_initialisation():
                  parent_experiment_rip = 'N/A',
                  branch_time = 0.,
                  contact = 'bob',
-                 outpath = 'Test')
+                 outpath = '.')
 
 def setup_data():
     axes = [ {'table_entry': 'time1',

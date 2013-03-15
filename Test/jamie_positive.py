@@ -4,7 +4,7 @@ import numpy
 
 def main():
     
-    cmor.setup(inpath='Tables',
+    cmor.setup(inpath='../Tables',
                netcdf_file_action = cmor.CMOR_REPLACE_3)
     cmor.dataset('pre-industrial control', 'ukmo', 'HadCM3', '360_day',
                  institute_id = 'ukmo',

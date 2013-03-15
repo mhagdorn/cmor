@@ -38,9 +38,9 @@ cmor.dataset(
     branch_time=18336.33)
 
 tables=[]
-a = cmor.load_table("Tables/CMIP5_grids")
+a = cmor.load_table("../Tables/CMIP5_grids")
 tables.append(a)
-tables.append(cmor.load_table("Tables/CMIP5_Amon"))
+tables.append(cmor.load_table("../Tables/CMIP5_Amon"))
 print 'Tables ids:',tables
 
 cmor.set_table(tables[0])

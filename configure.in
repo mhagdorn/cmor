@@ -72,12 +72,23 @@ AM_CONDITIONAL([BUILD_PYTHON], [test "$build_python" == "1"])
 # need to figure out how to deal with cdat
 ##########################################
 
+AC_MSG_CHECKING([whether we should run the large file tests])
+largetests=no
+AC_ARG_ENABLE(large_tests, AS_HELP_STRING([--enable-large-tests],[run large file tests]),
+if eval "test x$enable_large_tests = xyes"; then
+ largetests=yes
+fi
+AC_MSG_RESULT([yes]),
+[AC_MSG_RESULT([no])])
+AM_CONDITIONAL([LARGE_TESTS],[test "$largetests" == "yes"])
+   
+
 dnl look for various libraries
 PKG_CHECK_MODULES([UUID],[ossp-uuid])
 ACX_NETCDF([],[AC_MSG_ERROR(cannot find netCDF library)])
 ACX_UDUNITS2([],[AC_MSG_ERROR(cannot find udunits2 library)])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([include/Makefile Src/Makefile Lib/Makefile])
+AC_CONFIG_FILES([include/Makefile Src/Makefile cmor/Makefile])
 AC_CONFIG_FILES([Doc/Makefile Test/Makefile Tables/Makefile])
 AC_OUTPUT

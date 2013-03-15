@@ -1,9 +1,9 @@
 import cmor,numpy
 
-error_flag = cmor.setup(inpath='Test', netcdf_file_action=cmor.CMOR_REPLACE)
+error_flag = cmor.setup(inpath='.', netcdf_file_action=cmor.CMOR_REPLACE)
   
 error_flag = cmor.dataset(                                   
-       outpath='Test',                                         
+       outpath='.',                                         
        experiment_id='noVolc2000',
        institution= 'GICC (Generic International Climate Center, Geneva, Switzerland)',                                 
        source='GICCM1 (2002): ',
@@ -29,7 +29,7 @@ zbnds[:,0]=zlevs-240.
 zbnds[:,1]=zlevs+240.
 
 # creates 1 degree grid
-cmor.load_table("Tables/CMIP5_cf3hr")
+cmor.load_table("../Tables/CMIP5_cf3hr")
 
 
 ialt40 = cmor.axis("alt40",units="m",coord_vals=zlevs,cell_bounds=zbnds)
@@ -44,7 +44,7 @@ print igrid
 ilat = cmor.time_varying_grid_coordinate(igrid,table_entry='latitude',units='degrees_north')
 ilon = cmor.time_varying_grid_coordinate(igrid,table_entry='longitude',units='degrees_east')
 
-cmor.load_table("Tables/CMIP5_cf3hr")
+cmor.load_table("../Tables/CMIP5_cf3hr")
 ivar = cmor.variable("clcalipso",axis_ids=[igrid,ialt40],units="%")
 
 ierr =cmor.write(ivar,numpy.ones((2,3,n_lev)),time_vals=numpy.arange(3))

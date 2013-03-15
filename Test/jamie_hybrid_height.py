@@ -5,7 +5,7 @@ import numpy
 
 def main():
 
-    cmor.setup(inpath='Tables',
+    cmor.setup(inpath='../Tables',
                netcdf_file_action = cmor.CMOR_REPLACE)
     cmor.dataset('pre-industrial control', 'mohc', 'HadGEM2: source',
                  '360_day',

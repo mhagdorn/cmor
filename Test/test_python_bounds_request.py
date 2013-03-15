@@ -20,7 +20,7 @@ levs=numpy.array(levs)
 
 print levs
 
-ipth="Test"
+ipth="."
 cmor.setup(inpath=ipth,
            set_verbosity=cmor.CMOR_NORMAL,
            netcdf_file_action = cmor.CMOR_REPLACE,

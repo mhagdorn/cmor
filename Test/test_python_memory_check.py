@@ -61,7 +61,7 @@ def memory_usage(fhd,mem=0,res=0,stk=0):
     return nmem,nres,nstk
 
 def memory_check():
-    cmor.setup(inpath='Tables',netcdf_file_action=cmor.CMOR_REPLACE)
+    cmor.setup(inpath='../Tables',netcdf_file_action=cmor.CMOR_REPLACE)
 
     cmor.dataset('historical', 'ukmo', 'HadCM3', '360_day',
                  institute_id="PCMDI",

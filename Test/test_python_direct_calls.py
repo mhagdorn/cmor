@@ -29,9 +29,9 @@ cmor._cmor.dataset( \
     None,"GICCM1","Nat",0,0,"PCMDI","N/A",0,"r1i1p1")
 
 tables=[]
-a = cmor._cmor.load_table("Tables/CMIP5_Omon")
+a = cmor._cmor.load_table("../Tables/CMIP5_Omon")
 tables.append(a)
-tables.append(cmor._cmor.load_table("Tables/CMIP5_Amon"))
+tables.append(cmor._cmor.load_table("../Tables/CMIP5_Amon"))
 print 'Tables ids:',tables
 
 

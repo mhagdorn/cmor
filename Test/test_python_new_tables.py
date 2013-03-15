@@ -1,6 +1,6 @@
 import cmor,numpy
 
-ipth="Test"
+ipth="."
 cmor.setup(inpath=ipth,
            set_verbosity=cmor.CMOR_NORMAL,
            netcdf_file_action = cmor.CMOR_REPLACE,
@@ -19,7 +19,7 @@ cmor.dataset(
     parent_experiment_rip="r3i8p1",
     branch_time=0.)
 
-cmor.load_table("Tables/CMIP5_Amon")
+cmor.load_table("../Tables/CMIP5_Amon")
 
 nlat = 90
 dlat = 180/nlat

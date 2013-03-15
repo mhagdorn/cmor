@@ -24,7 +24,7 @@ def mywrite(data = None, time_vals = None, append_to = None,cell_bounds=None):
 
     print levs
 
-    ipth="Test"
+    ipth="."
     if append_to is None:
         mode = cmor.CMOR_REPLACE
     else:
@@ -48,7 +48,7 @@ def mywrite(data = None, time_vals = None, append_to = None,cell_bounds=None):
         parent_experiment_rip="r1i3p2",
         branch_time=3.14159)
 
-    cmor.load_table("Tables/CMIP5_Amon")
+    cmor.load_table("../Tables/CMIP5_Amon")
 
     dlat = 180/nlat
     dlon = 360./nlon

@@ -4,7 +4,7 @@ import numpy
 
 
 def test_mode(mode,i,suffix=''):
-    cmor.setup(inpath='Tables',
+    cmor.setup(inpath='../Tables',
                netcdf_file_action = mode)
     cmor.dataset('pre-industrial control', 'ukmo', 'HadCM3', '360_day',
                  institute_id = 'ukmo',

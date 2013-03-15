@@ -23,7 +23,7 @@ if level==0:
 else:
     deflate = 1
 
-f=open("Test/speed_test_table_A")
+f=open("speed_test_table_A")
 s=f.read()
 f.close()
 s=s.replace("${DEFLATE_LEVEL}",str(level))
@@ -33,9 +33,9 @@ f=open("mytable","w")
 f.write(s)
 f.close()
 
-cmor.setup(inpath="Test",set_verbosity=cmor.CMOR_NORMAL, netcdf_file_action = cmor.CMOR_REPLACE, exit_control = cmor.CMOR_EXIT_ON_MAJOR);
+cmor.setup(inpath=".",set_verbosity=cmor.CMOR_NORMAL, netcdf_file_action = cmor.CMOR_REPLACE, exit_control = cmor.CMOR_EXIT_ON_MAJOR);
 cmor.dataset(
-    outpath = "Test",
+    outpath = ".",
     experiment_id = "lgm",
     institution = "GICC (Generic International Climate Center, Geneva, Switzerland)",
     source = "GICCM1 (2002): atmosphere:  GICAM3 (gicam_0_brnchT_itea_2, T63L32); ocean: MOM (mom3_ver_3.5.2, 2x3L15); sea ice: GISIM4; land: GILSM2.5",
@@ -97,7 +97,7 @@ mincmor=1000
 maxcdms=0
 mincdms=1000
 c0=st
-f=cdms2.open("Test/crap.nc","w")
+f=cdms2.open(".crap.nc","w")
 #print 'Time:',i
 print s.filled().shape
 cmor.write(myvars[0],s.filled(),ntimes_passed=ntimes)
@@ -123,10 +123,10 @@ cmor.close()
 
 import cdtime,os
 ltime = cdtime.reltime(ntimes-1,'month since 1980').tocomp()
-lcmor = os.stat("Test/CMIP5/output/PCMDI/GICCM1/lgm/mon/atmos/tas/r1i1p1/tas_Amon_GICCM1_lgm_r1i1p1_198401-198412.nc")[6]
+lcmor = os.stat("CMIP5/output/PCMDI/GICCM1/lgm/mon/atmos/tas/r1i1p1/tas_Amon_GICCM1_lgm_r1i1p1_198401-198412.nc")[6]
 print 'level:',level,"shuffle:",shuffle
 print 'total cmor:',totcmor,mincmor,totcmor/ntimes,maxcmor,lcmor
-lcdms = os.stat("Test/crap.nc")[6]
+lcdms = os.stat("crap.nc")[6]
 print 'total cdms:',totcdms,mincdms,totcdms/ntimes,maxcdms,lcdms
 print 'Size diff:',float(lcmor)/float(lcdms)
 print 'speed diff:', totcmor/totcdms

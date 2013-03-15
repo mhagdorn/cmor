@@ -1,9 +1,9 @@
 import cmor,numpy
 
-error_flag = cmor.setup(inpath='Test', netcdf_file_action=cmor.CMOR_REPLACE)
+error_flag = cmor.setup(inpath='.', netcdf_file_action=cmor.CMOR_REPLACE)
   
 error_flag = cmor.dataset(                                   
-       outpath='Test',                                         
+       outpath='.',                                         
        experiment_id='noVolc2000',
        institution= 'GICC (Generic International Climate Center, Geneva, Switzerland)',                                 
        source='GICCM1 (2002): ',
@@ -21,7 +21,7 @@ error_flag = cmor.dataset(
        branch_time=3.14159)
   
 
-cmor.load_table("Tables/CMIP5_Omon")
+cmor.load_table("../Tables/CMIP5_Omon")
 itime = cmor.axis(table_entry="time",units='months since 2010',coord_vals=numpy.array([0,1,2,3,4.]),cell_bounds=numpy.array([0,1,2,3,4,5.]))
 # creates 1 degree grid
 nlat=18

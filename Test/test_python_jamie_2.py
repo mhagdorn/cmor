@@ -1,7 +1,7 @@
 import cmor
 
 def multi_call_test():
-    cmor.setup(inpath='Tables',netcdf_file_action=cmor.CMOR_REPLACE)
+    cmor.setup(inpath='../Tables',netcdf_file_action=cmor.CMOR_REPLACE)
 
     cmor.dataset('historical', 'ukmo', 'HadCM3', '360_day',
                  institute_id="PCMDI",

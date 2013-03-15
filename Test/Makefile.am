@@ -1,5 +1,5 @@
 check_PROGRAMS = cipcc_test_code ctest_grid ctest_lots_of_variables $(fortran_tests)
-TESTS = $(patsubst %,%.sh,$(check_PROGRAMS))
+TESTS = $(patsubst %,%.sh,$(check_PROGRAMS)) $(patsubst %,%.sh,$(python_tests))
 
 CLEANFILES = *.mod $(TESTS) $(subst sh,log,$(TESTS))
 EXTRA_DIST = reader_2D_3D.f90 runner.sh \
@@ -21,6 +21,37 @@ fortran_tests = test1 test2 test3 test4 test_any_from_asc test_any_from_asc_d \
                 climatology_test_code test_lots_of_variables test_shrt_exp_nm_set_att_initi \
                 test_sophie ipcc_test_code
 endif
+
+
+if BUILD_PYTHON
+if LARGE_TESTS
+big_python_tests = test_python_2Gb_file.py test_python_2Gb_slice.py
+endif
+
+python_tests = test_python_direct_calls.py test_python_user_interface_00.py \
+               test_python_user_interface_01.py test_python_user_interface_03.py \
+               test_python_common.py cmor_speed_and_compression.py \
+               cmor_speed_and_compression_01.py test_compression.py \
+               test_python_appending.py test_python_bounds_request.py \
+               test_python_new_tables.py test_python_jamie.py test_python_jamie_2.py \
+               test_python_jamie_3.py test_python_jamie_4.py test_python_jamie_6.py \
+               test_python_jamie_7.py test_python_jamie_8.py test_python_memory_check.py \
+               test_python_open_close_cmor_multiple.py test_python_jamie_7.py \
+               test_python_joerg_1.py test_python_joerg_2.py test_python_joerg_3.py \
+               test_python_joerg_5.py test_python_joerg_6.py test_python_joerg_7.py \
+               test_python_joerg_8.py test_python_joerg_10.py test_python_joerg_11.py \
+               test_python_joerg_12.py test_python_YYYMMDDHH_exp_fmt.py \
+               test_python_region.py jamie_hybrid_height.py jamie_positive.py \
+               test_python_1D_var.py test_python_3hr.py test_python_YYYMMDDHH_exp_fmt.py \
+               test_python_cfmip_site_axis_test.py test_python_fx.py \
+               test_python_grid_and_ocn_sigma.py test_python_jamie_site_surface.py \
+               test_python_max_variables.py test_python_max_variables_2.py \
+               test_python_reverted_lats.py $(big_python_tests)
+endif 
+
+%.py.sh:	%.py
+	@sed -e 's|@name[@]|$<|g'  pyrunner.sh > $@
+	@chmod a+x $@
 
 %.sh:	%
 	@sed -e 's|@name[@]|$<|g' -e 's|@inputs[@]|$($<_INPUT)|g' runner.sh > $@
