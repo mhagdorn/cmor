@@ -2,13 +2,13 @@ check_PROGRAMS = cipcc_test_code ctest_grid ctest_lots_of_variables $(fortran_te
 TESTS = $(patsubst %,%.sh,$(check_PROGRAMS)) $(patsubst %,%.sh,$(python_tests))
 
 CLEANFILES = *.mod $(TESTS) $(subst sh,log,$(TESTS))
-EXTRA_DIST = reader_2D_3D.f90 runner.sh \
+EXTRA_DIST = reader_2D_3D.f90 runner.sh pyrunner.sh $(python_tests) $(big_python_tests)\
              alejandro.txt alejandro_1.txt alejandro_2.txt tas_3D_noreorder.input \
              3D_txy.input 3D_txy_split_lon.input 3D_xty_split_lon.input \
              tas_mytest_3d_i.input noinput tas_mytest_noreorder.asc tas_mytest_3d_i.asc \
              ta_4D_r.asc tas_harvardf.txt CMIP5_cf3hr_0.txt CMIP5_cf3hr_1.txt \
              tas_mytest_reorder.asc tas_mytest_reorder_split_lon.asc CMIP5_Amons \
-             CMIP5_cf3hr.txt tas_3D_xty_-180_180.asc
+             CMIP5_cf3hr.txt tas_3D_xty_-180_180.asc CMIP5_Amon_YYYYMMDDHH python_test_table_A
 
 if BUILD_FORTRAN
 fortran_tests = test1 test2 test3 test4 test_any_from_asc test_any_from_asc_d \
